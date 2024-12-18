@@ -318,6 +318,9 @@ function handleDelete() {
     const postElement = $(`#post-${currentEditId}`);
     postElement.addClass('deleting');
 
+    var audio = new Audio();
+    audio.src = "3.mp3";
+    audio.play();
 
     postsRef.child(currentEditId).remove()
         .then(() => {
