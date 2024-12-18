@@ -15,6 +15,8 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="www/config.js"></script>
 
+    
+
     <script>
 let postsRef;
 let postsListener = null;
@@ -57,13 +59,16 @@ function updateCharacterCount(inputId, counterId, maxLength) {
     
     input.on('input', () => {
         const length = input.val().length;
-        counter.text(`${length}/${maxLength}`);
+        counter.text('残り'+`${maxLength-length}`+'文字');
+        
+        
     
         if (length > maxLength) {
             counter.addClass('error');
         } else {
             counter.removeClass('error');
         }
+        
     });
 }
 
@@ -117,6 +122,7 @@ function createPost(author, content) {
         userId: currentUser.uid
     };
 
+    
     postsRef.push(postData)
         .then(() => {
             showMessage('投稿が完了しました！');
@@ -284,6 +290,8 @@ function handleUpdate() {
         updatedAt: firebase.database.ServerValue.TIMESTAMP
     };
 
+   
+
     postsRef.child(currentEditId).update(updates)
         .then(() => {
             showMessage('投稿を更新しました');
@@ -302,6 +310,7 @@ function handleDelete() {
 
     const postElement = $(`#post-${currentEditId}`);
     postElement.addClass('deleting');
+
 
     postsRef.child(currentEditId).remove()
         .then(() => {
