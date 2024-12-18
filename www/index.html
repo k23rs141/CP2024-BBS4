@@ -122,7 +122,10 @@ function createPost(author, content) {
         userId: currentUser.uid
     };
 
-    
+    var audio = new Audio();
+    audio.src = "1.mp3";
+    audio.play();
+
     postsRef.push(postData)
         .then(() => {
             showMessage('投稿が完了しました！');
@@ -284,6 +287,10 @@ function handleUpdate() {
     
     const content = $('#editContent').val();
     if (!validateContent(content)) return;
+
+    var audio = new Audio();
+    audio.src = "2.mp3";
+    audio.play();
 
     const updates = {
         content: content,
