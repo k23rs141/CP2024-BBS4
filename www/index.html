@@ -54,13 +54,18 @@ function getAuthErrorMessage(error) {
 
 // 文字数カウントの更新
 function updateCharacterCount(inputId, counterId, maxLength) {
+    //const a = $('#a').val();
     const input = $(`#${inputId}`);
     const counter = $(`#${counterId}`);
     
     input.on('input', () => {
         const length = input.val().length;
-        counter.text('残り'+`${maxLength-length}`+'文字');
-        
+        const a = $('#a').val();
+        if (a === 'x') {
+            counter.text('残り'+`${maxLength-length}`+'文字');
+        }else if(a == 'y'){
+            counter.text(`${length}/${maxLength}`);
+        }
         
     
         if (length > maxLength) {
@@ -260,6 +265,8 @@ function loadPosts() {
         } else {
             posts.sort((a, b) => a.timestamp - b.timestamp);
         }
+
+        
 
         renderPosts(posts);
         $('#loadingSpinner').hide();
@@ -520,6 +527,7 @@ $(function() {
 
     // 投稿一覧表示順序選択
     $('#sortOrder').on('change', loadPosts);
+    $('#a').on('change', loadPosts);
 
     // 投稿一覧の初期読み込み
     loadPosts();
@@ -577,10 +585,12 @@ window.addEventListener('unload', function() {
             <div class="button-group">
                 <button id="postButton" class="btn-primary">投稿する</button>
             </div>
-            <select id="a" class="">
+            <div class="posts-control">
+                <select id="a" class="">
                     <option value="x">残りの文字数</option>
                     <option value="y">今の文字数</option>
-            </select>
+                </select>
+            </div>
         </div>
 
         <!-- 投稿一覧 -->
